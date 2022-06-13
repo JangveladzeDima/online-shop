@@ -18,24 +18,24 @@ describe('validateUser', () => {
     service = moduleRef.get<AuthService>(AuthService);
   });
 
-  it('should return error when token is invalid', async () => {
-    const res = await service.validateJwt(
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImV4YW1wbGVAZ21haWwuY29tIiwicm9sZSI6InVzZXIifQ.E25da60F1x24NtZUTeiJ1FkPHhGYsf5sNE8zaUijum0',
-    );
-
-    expect(res.email).toBe('example@gmail.com');
-    expect(res.role).toBe('user');
-  });
+  let token = '';
 
   describe('generate access token', () => {
     it('should return a string', async () => {
       const res = await service.generateAccessToken(
         'example@gmail.com',
-        'user',
+        'client',
       );
-      console.log(res);
+      token = res.access_token;
       expect(typeof res.access_token).toBe('string');
     });
+  });
+
+  it('should return error when token is invalid', async () => {
+    const res = await service.validateJwt(token);
+
+    expect(res.email).toBe('example@gmail.com');
+    expect(res.role).toBe('client');
   });
 
   afterAll(async () => {
