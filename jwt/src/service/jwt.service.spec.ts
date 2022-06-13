@@ -31,7 +31,7 @@ describe('validateUser', () => {
     });
   });
 
-  it('should return error when token is invalid', async () => {
+  it('should return email and role when token is valid', async () => {
     const res = await service.validateJwt(token);
 
     expect(res.email).toBe('example@gmail.com');
