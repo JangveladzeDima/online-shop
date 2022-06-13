@@ -1,14 +1,21 @@
-import { Controller, Inject, Logger } from "@nestjs/common";
-import { ClientService } from "../service/client.service";
-import { IClientService } from "../service/client-service.interface";
+import { Controller, Get, Inject, Logger, Param } from '@nestjs/common';
+import { IClientService } from '../service/client-service.interface';
+import { IClientFilter } from 'src/interface/client-filter.interface';
+import { MessagePattern } from '@nestjs/microservices';
 
-@Controller('')
+@Controller('client')
 export class ClientController {
-    logger = new Logger(ClientController.name)
+  logger = new Logger(ClientController.name);
 
-    constructor(
-        @Inject(ClientService) private readonly clientService: IClientService
-    ) {
+  constructor(private readonly clientService: IClientService) {}
+
+  @MessagePattern('get')
+  find(filter: IClientFilter) {
+    try {
+      return this.clientService.getClient(filter);
+    } catch (error) {
+      this.logger.error(error);
+      throw error;
     }
-
+  }
 }
