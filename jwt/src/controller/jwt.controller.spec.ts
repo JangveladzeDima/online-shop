@@ -41,5 +41,4 @@ describe('validateUser', () => {
   afterAll(async () => {
     await app.close();
   });
-  
 });
