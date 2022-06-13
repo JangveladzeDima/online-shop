@@ -15,4 +15,7 @@ export class ClientRepository implements IClientRepository {
   async getClient(filter: IClientFilter): Promise<IClient> {
     return this.client.findOne(filter);
   }
+  async deleteClient(filter: IClientFilter): Promise<IClient> {
+    return this.client.findOneAndDelete(filter);
+  }
 }
