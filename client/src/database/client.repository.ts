@@ -11,11 +11,13 @@ export class ClientRepository implements IClientRepository {
   logger = new Logger(ClientRepository.name);
 
   constructor(@InjectModel('client') private readonly client: Model<IClient>) {}
-
   async getClient(filter: IClientFilter): Promise<IClient> {
     return this.client.findOne(filter);
   }
   async deleteClient(filter: IClientFilter): Promise<IClient> {
     return this.client.findOneAndDelete(filter);
+  }
+  async create(client: IClient): Promise<IClient> {
+    return this.client.create(client);
   }
 }
