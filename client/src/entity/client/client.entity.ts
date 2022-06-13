@@ -32,5 +32,4 @@ export const ClientEntity = new Schema({
     updated_at: {
         type: Date
     }
-
 })
