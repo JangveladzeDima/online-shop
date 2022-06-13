@@ -8,11 +8,16 @@ import { IClientFilter } from 'src/interface/client-filter.interface';
 
 @Injectable()
 export class ClientRepository implements IClientRepository {
-  logger = new Logger(ClientRepository.name);
+    logger = new Logger(ClientRepository.name);
 
-  constructor(@InjectModel('client') private readonly client: Model<IClient>) {}
+    constructor(@InjectModel('client') private readonly client: Model<IClient>) {
+    }
 
-  async getClient(filter: IClientFilter): Promise<IClient> {
-    return this.client.findOne(filter);
-  }
+    async create(client: IClient): Promise<IClient> {
+        return this.client.create(client)
+    }
+
+    async getClient(filter: IClientFilter): Promise<IClient> {
+        return this.client.findOne(filter);
+    }
 }
