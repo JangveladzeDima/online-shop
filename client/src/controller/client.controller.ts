@@ -1,8 +1,8 @@
 import { Controller, Inject, Logger } from '@nestjs/common';
-import { IClientService } from '../service/client-service.interface';
+import { IClientService } from '../service/client/client-service.interface';
 import { IClientFilter } from 'src/interface/client-filter.interface';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { ClientService } from "../service/client.service";
+import { ClientService } from "../service/client/client.service";
 import { IClient } from "../interface/client.interface";
 
 @Controller('client')

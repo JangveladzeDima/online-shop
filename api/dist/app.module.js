@@ -13,6 +13,8 @@ const product_controller_1 = require("./controller/product.controller");
 const product_service_1 = require("./service/product/product.service");
 const client_service_1 = require("./service/client/client.service");
 const microservices_1 = require("@nestjs/microservices");
+const auth_controller_1 = require("./controller/auth.controller");
+const auth_service_1 = require("./service/auth/auth.service");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -40,15 +42,29 @@ AppModule = __decorate([
                             durable: false
                         }
                     }
+                },
+                {
+                    name: 'JWT_SERVICE',
+                    transport: microservices_1.Transport.RMQ,
+                    options: {
+                        urls: ['amqp://guest:guest@localhost:5672'],
+                        queue: 'jwt_queue',
+                        queueOptions: {
+                            durable: false
+                        }
+                    }
                 }
             ])
         ],
         controllers: [
             client_controller_1.ClientController,
-            product_controller_1.ProductController
+            product_controller_1.ProductController,
+            auth_controller_1.AuthController
         ],
-        providers: [client_service_1.ClientService,
-            product_service_1.ProductService
+        providers: [
+            client_service_1.ClientService,
+            product_service_1.ProductService,
+            auth_service_1.AuthService
         ],
     })
 ], AppModule);
