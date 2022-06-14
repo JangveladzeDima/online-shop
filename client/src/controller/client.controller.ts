@@ -1,9 +1,14 @@
 import { Controller, Inject, Logger } from '@nestjs/common';
-import { IClientService } from '../service/client-service.interface';
+import { IClientService } from '../service/client/client-service.interface';
 import { IClientFilter } from 'src/interface/client-filter.interface';
 import { MessagePattern, Payload } from '@nestjs/microservices';
+<<<<<<< HEAD
 import { ClientService } from '../service/client.service';
 import { IClient } from '../interface/client.interface';
+=======
+import { ClientService } from "../service/client/client.service";
+import { IClient } from "../interface/client.interface";
+>>>>>>> 0d245bf79c3ccdeaee2a1517707f1773179159bd
 
 @Controller('client')
 export class ClientController {
