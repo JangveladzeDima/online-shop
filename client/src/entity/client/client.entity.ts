@@ -1,35 +1,35 @@
-import { Schema } from 'mongoose'
+import { Schema } from "mongoose"
 
 export const ClientEntity = new Schema({
     email: {
         type: String,
         unique: true,
-        required: true
+        required: true,
     },
     phoneNumber: {
         type: String,
-        required: true
+        required: true,
     },
     firstname: {
         type: String,
-        required: true
+        required: true,
     },
     lastname: {
         type: String,
-        required: true
+        required: true,
     },
     password: {
         type: String,
-        required: true
+        required: true,
     },
     salt: {
         type: String,
-        required: true
+        required: true,
     },
     created_at: {
-        type: Date
+        type: Date,
     },
     updated_at: {
-        type: Date
-    }
+        type: Date,
+    },
 })

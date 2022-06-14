@@ -1,3 +1,1 @@
-export interface IProductService{
-
-}
+export interface IProductService {}
