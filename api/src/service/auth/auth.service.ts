@@ -3,6 +3,7 @@ import { IAuthService } from "./auth-service.interface";
 import { LoginParamsDto } from "../../dto/auth/login-params.dto";
 import { ClientProxy, RpcException } from "@nestjs/microservices";
 import { firstValueFrom } from "rxjs";
+import { LoginResponseDto } from "../../dto/auth/login-response.dto";
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -12,7 +13,7 @@ export class AuthService implements IAuthService {
     ) {
     }
 
-    async login(loginParams: LoginParamsDto): Promise<string> {
+    async login(loginParams: LoginParamsDto): Promise<LoginResponseDto> {
         const client = await firstValueFrom(this.clientService.send('get', {
             email: loginParams.email
         }))
@@ -22,7 +23,7 @@ export class AuthService implements IAuthService {
                 code: 400
             })
         }
-        const token: string = await firstValueFrom(this.jwtService.send('get-jwt-token', {
+        const token: LoginResponseDto = await firstValueFrom(this.jwtService.send('get-jwt-token', {
             email: loginParams.email,
             role: 'client'
         }))

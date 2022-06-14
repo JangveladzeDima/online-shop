@@ -16,6 +16,8 @@ exports.ClientController = void 0;
 const common_1 = require("@nestjs/common");
 const client_service_1 = require("../service/client/client.service");
 const client_registration_dto_1 = require("../dto/client/client-registration.dto");
+const swagger_1 = require("@nestjs/swagger");
+const client_dto_1 = require("../dto/client/client.dto");
 let ClientController = class ClientController {
     constructor(clientService) {
         this.clientService = clientService;
@@ -34,6 +36,14 @@ let ClientController = class ClientController {
 };
 __decorate([
     (0, common_1.Post)('/registration'),
+    (0, swagger_1.ApiCreatedResponse)({
+        description: 'Client Create',
+        type: client_dto_1.Client
+    }),
+    (0, swagger_1.ApiBadGatewayResponse)({
+        description: 'Client Email Already Exists'
+    }),
+    (0, swagger_1.ApiBody)({ type: client_registration_dto_1.ClientRegistrationDto }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [client_registration_dto_1.ClientRegistrationDto]),
@@ -41,6 +51,7 @@ __decorate([
 ], ClientController.prototype, "clientRegistration", null);
 ClientController = __decorate([
     (0, common_1.Controller)('client'),
+    (0, swagger_1.ApiTags)('client'),
     __param(0, (0, common_1.Inject)(client_service_1.ClientService)),
     __metadata("design:paramtypes", [Object])
 ], ClientController);
