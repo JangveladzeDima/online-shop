@@ -5,6 +5,7 @@ import { ClientRepository } from "src/database/client.repository"
 import { IClient } from "src/interface/client.interface"
 import { IClientService } from "./client-service.interface"
 import { ClientProxy, RpcException } from "@nestjs/microservices"
+import { IClientUpdate } from "src/interface/client.update.interface"
 
 @Injectable()
 export class ClientService implements IClientService {
@@ -34,5 +35,21 @@ export class ClientService implements IClientService {
 
     deleteClient(filter: IClientFilter): Promise<IClient> {
         return this.clientRepository.deleteClient(filter)
+    }
+
+    update(filter: IClientFilter, ClientUpdateParams: IClientUpdate): Promise<IClient> {
+        try {
+            const client = this.clientRepository.getClient(filter)
+            if (!client) {
+                throw new RpcException({
+                    message: "Client not found",
+                    code: 404,
+                })
+            }
+            const updatedClient = this.clientRepository.update(filter, ClientUpdateParams)
+            return updatedClient
+        } catch (error) {
+            throw error(error)
+        }
     }
 }
