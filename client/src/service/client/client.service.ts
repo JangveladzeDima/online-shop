@@ -9,9 +9,9 @@ import { ClientProxy, RpcException } from '@nestjs/microservices';
 @Injectable()
 export class ClientService implements IClientService {
     constructor(
-        @Inject(ClientRepository)
-        private readonly clientRepository: IClientRepository,
-        @Inject('HASH_SERVICE') private readonly hashService: ClientProxy,
+                    @Inject(ClientRepository)
+                    private readonly clientRepository: IClientRepository,
+                    @Inject('HASH_SERVICE') private readonly hashService: ClientProxy,
     ) {
     }
 
