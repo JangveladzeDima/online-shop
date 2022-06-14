@@ -21,7 +21,7 @@ export class ClientRepository implements IClientRepository {
     async create(client: IClient): Promise<IClient> {
         return this.client.create(client)
     }
-    async update(filter: IClientFilter, ClientUpdateParams: IClientUpdate): Promise<IClient> {
-        return this.client.findOneAndUpdate(filter, ClientUpdateParams)
+    async update(filter: IClientFilter, clientUpdateParams: IClientUpdate): Promise<IClient> {
+        return this.client.findOneAndUpdate(filter, clientUpdateParams)
     }
 }

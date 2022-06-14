@@ -6,5 +6,5 @@ export interface IClientRepository {
     getClient(filter: IClientFilter): Promise<IClient>
     deleteClient(filter: IClientFilter): Promise<IClient>
     create(client: IClient): Promise<IClient>
-    update(filter: IClientFilter, ClientUpdateParams: IClientUpdate): Promise<IClient>
+    update(filter: IClientFilter, clientUpdateParams: IClientUpdate): Promise<IClient>
 }
