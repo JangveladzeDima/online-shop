@@ -1,33 +1,28 @@
-import { Body, Controller, HttpException, Inject, Logger, Post } from "@nestjs/common";
-import { ClientService } from "../service/client/client.service";
-import { IClientService } from "../service/client/client-service.interface";
-import { ClientRegistrationDto } from "../dto/client/client-registration.dto";
-import { IClient } from "../model/client.interface";
-import { ApiBadGatewayResponse, ApiBody, ApiCreatedResponse, ApiTags } from "@nestjs/swagger";
-import { Client } from "../dto/client/client.dto";
+import { Body, Controller, HttpException, Inject, Logger, Post } from "@nestjs/common"
+import { ClientService } from "../service/client/client.service"
+import { IClientService } from "../service/client/client-service.interface"
+import { ClientRegistrationDto } from "../dto/client/client-registration.dto"
+import { IClient } from "../model/client.interface"
+import { ApiBadGatewayResponse, ApiBody, ApiCreatedResponse, ApiTags } from "@nestjs/swagger"
+import { Client } from "../dto/client/client.dto"
 
-@Controller('client')
-@ApiTags('client')
+@Controller("client")
+@ApiTags("client")
 export class ClientController {
     logger = new Logger()
 
-    constructor(
-        @Inject(ClientService) private readonly clientService: IClientService
-    ) {
-    }
+    constructor(@Inject(ClientService) private readonly clientService: IClientService) {}
 
-    @Post('/registration')
+    @Post("/registration")
     @ApiCreatedResponse({
-        description: 'Client Create',
-        type: Client
+        description: "Client Create",
+        type: Client,
     })
     @ApiBadGatewayResponse({
-        description: 'Client Email Already Exists'
+        description: "Client Email Already Exists",
     })
     @ApiBody({ type: ClientRegistrationDto })
-    async clientRegistration(
-        @Body() registrationParams: ClientRegistrationDto
-    ): Promise<IClient> {
+    async clientRegistration(@Body() registrationParams: ClientRegistrationDto): Promise<IClient> {
         try {
             const client = await this.clientService.create(registrationParams)
             return client

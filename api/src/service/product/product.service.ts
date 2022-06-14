@@ -1,7 +1,5 @@
-import { Injectable } from "@nestjs/common";
-import { IProductService } from "./product-service.interface";
+import { Injectable } from "@nestjs/common"
+import { IProductService } from "./product-service.interface"
 
 @Injectable()
-export class ProductService implements IProductService {
-
-}
+export class ProductService implements IProductService {}

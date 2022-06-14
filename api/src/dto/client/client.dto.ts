@@ -1,4 +1,3 @@
-import { ClientRegistrationDto } from "./client-registration.dto";
+import { ClientRegistrationDto } from "./client-registration.dto"
 
-export class Client extends ClientRegistrationDto {
-}
+export class Client extends ClientRegistrationDto {}
