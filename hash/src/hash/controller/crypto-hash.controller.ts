@@ -20,7 +20,7 @@ export class CryptoHashController {
     }
 
     @MessagePattern("get-hash-by-salt")
-    async getHashBySalt(@Payload() text: string, salt: string) {
+    async getHashBySalt(@Payload() { salt, text }: { text: string; salt: string }) {
         try {
             return this.cryptoHashService.generateHashBySalt(text, salt)
         } catch (err) {

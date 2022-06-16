@@ -4,6 +4,8 @@ import { IClientFilter } from "src/interface/client-filter.interface"
 import { MessagePattern, Payload } from "@nestjs/microservices"
 import { ClientService } from "../service/client/client.service"
 import { IClient } from "../interface/client.interface"
+import { IClientUpdate } from "src/interface/client.update.interface"
+import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript"
 
 @Controller("client")
 export class ClientController {
@@ -36,6 +38,15 @@ export class ClientController {
     delete(@Payload() filter: IClientFilter) {
         try {
             return this.clientService.deleteClient(filter)
+        } catch (error) {
+            this.logger.error(error)
+            throw error
+        }
+    }
+    @MessagePattern("update")
+    update(@Payload("filter") filter: IClientFilter, @Payload("updateParams") clientParams: IClientUpdate) {
+        try {
+            return this.clientService.update(filter, clientParams)
         } catch (error) {
             this.logger.error(error)
             throw error

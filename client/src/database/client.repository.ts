@@ -5,6 +5,7 @@ import { InjectModel } from "@nestjs/mongoose"
 import { Model } from "mongoose"
 import { IClient } from "src/interface/client.interface"
 import { IClientFilter } from "src/interface/client-filter.interface"
+import { IClientUpdate } from "src/interface/client.update.interface"
 
 @Injectable()
 export class ClientRepository implements IClientRepository {
@@ -19,5 +20,8 @@ export class ClientRepository implements IClientRepository {
     }
     async create(client: IClient): Promise<IClient> {
         return this.client.create(client)
+    }
+    async update(filter: IClientFilter, clientUpdateParams: IClientUpdate): Promise<IClient> {
+        return this.client.findOneAndUpdate(filter, clientUpdateParams)
     }
 }
