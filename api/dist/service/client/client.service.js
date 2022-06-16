@@ -17,23 +17,29 @@ const common_1 = require("@nestjs/common");
 const microservices_1 = require("@nestjs/microservices");
 const rxjs_1 = require("rxjs");
 let ClientService = class ClientService {
-    constructor(clientMicroservice, hashService) {
+    constructor(clientMicroservice, hashMicroservice) {
         this.clientMicroservice = clientMicroservice;
-        this.hashService = hashService;
+        this.hashMicroservice = hashMicroservice;
         this.logger = new common_1.Logger();
     }
     async create(clientParams) {
-        const { hash, salt } = await (0, rxjs_1.firstValueFrom)(this.hashService.send('get-hash-and-salt-by-text', "dima"));
-        const client = await (0, rxjs_1.firstValueFrom)(this.clientMicroservice.send('add', Object.assign(Object.assign({}, clientParams), { password: hash, salt })));
+        const { hash, salt } = await (0, rxjs_1.firstValueFrom)(this.hashMicroservice.send("get-hash-and-salt-by-text", "dima"));
+        const client = await (0, rxjs_1.firstValueFrom)(this.clientMicroservice.send("add", Object.assign(Object.assign({}, clientParams), { password: hash, salt })));
+        return client;
+    }
+    async update(filter, updatedParams) {
+        const client = await (0, rxjs_1.firstValueFrom)(this.clientMicroservice.send("update", {
+            filter,
+            updateParams: updatedParams,
+        }));
         return client;
     }
 };
 ClientService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, common_1.Inject)('CLIENT_SERVICE')),
-    __param(1, (0, common_1.Inject)('HASH_SERVICE')),
-    __metadata("design:paramtypes", [microservices_1.ClientProxy,
-        microservices_1.ClientProxy])
+    __param(0, (0, common_1.Inject)("CLIENT_SERVICE")),
+    __param(1, (0, common_1.Inject)("HASH_SERVICE")),
+    __metadata("design:paramtypes", [microservices_1.ClientProxy, microservices_1.ClientProxy])
 ], ClientService);
 exports.ClientService = ClientService;
 //# sourceMappingURL=client.service.js.map

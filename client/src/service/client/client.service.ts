@@ -6,6 +6,7 @@ import { IClient } from "src/interface/client.interface"
 import { IClientService } from "./client-service.interface"
 import { ClientProxy, RpcException } from "@nestjs/microservices"
 import { IClientUpdate } from "src/interface/client.update.interface"
+import { firstValueFrom } from "rxjs"
 
 @Injectable()
 export class ClientService implements IClientService {
@@ -41,6 +42,11 @@ export class ClientService implements IClientService {
                 code: 404,
             })
         }
-        return this.clientRepository.update(filter, clientUpdateParams)
+        const { hash, salt } = await firstValueFrom(this.hashService.send("get-hash-and-salt-by-text", clientUpdateParams.password))
+        return this.clientRepository.update(filter, {
+            ...clientUpdateParams,
+            password: hash,
+            salt,
+        })
     }
 }

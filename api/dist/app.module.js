@@ -22,50 +22,42 @@ AppModule = __decorate([
         imports: [
             microservices_1.ClientsModule.register([
                 {
-                    name: 'CLIENT_SERVICE',
+                    name: "CLIENT_SERVICE",
                     transport: microservices_1.Transport.RMQ,
                     options: {
-                        urls: ['amqp://guest:guest@localhost:5672'],
-                        queue: 'client_queue',
+                        urls: ["amqp://guest:guest@localhost:5672"],
+                        queue: "client_queue",
                         queueOptions: {
-                            durable: false
-                        }
-                    }
+                            durable: false,
+                        },
+                    },
                 },
                 {
-                    name: 'HASH_SERVICE',
+                    name: "HASH_SERVICE",
                     transport: microservices_1.Transport.RMQ,
                     options: {
-                        urls: ['amqp://guest:guest@localhost:5672'],
-                        queue: 'hash_queue',
+                        urls: ["amqp://guest:guest@localhost:5672"],
+                        queue: "hash_queue",
                         queueOptions: {
-                            durable: false
-                        }
-                    }
+                            durable: false,
+                        },
+                    },
                 },
                 {
-                    name: 'JWT_SERVICE',
+                    name: "JWT_SERVICE",
                     transport: microservices_1.Transport.RMQ,
                     options: {
-                        urls: ['amqp://guest:guest@localhost:5672'],
-                        queue: 'jwt_queue',
+                        urls: ["amqp://guest:guest@localhost:5672"],
+                        queue: "jwt_queue",
                         queueOptions: {
-                            durable: false
-                        }
-                    }
-                }
-            ])
+                            durable: false,
+                        },
+                    },
+                },
+            ]),
         ],
-        controllers: [
-            client_controller_1.ClientController,
-            product_controller_1.ProductController,
-            auth_controller_1.AuthController
-        ],
-        providers: [
-            client_service_1.ClientService,
-            product_service_1.ProductService,
-            auth_service_1.AuthService
-        ],
+        controllers: [client_controller_1.ClientController, product_controller_1.ProductController, auth_controller_1.AuthController],
+        providers: [client_service_1.ClientService, product_service_1.ProductService, auth_service_1.AuthService],
     })
 ], AppModule);
 exports.AppModule = AppModule;

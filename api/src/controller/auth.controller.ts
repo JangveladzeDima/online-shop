@@ -25,7 +25,7 @@ export class AuthController {
             const token = await this.authService.login(loginParams)
             return token
         } catch (err) {
-            this.logger.error(err.message)
+            this.logger.error(err)
             const { message, code } = err.error
             throw new HttpException(message, code)
         }
