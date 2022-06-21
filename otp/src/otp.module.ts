@@ -7,6 +7,7 @@ import { HttpModule } from "@nestjs/axios"
 import { DatabaseModule } from "./database/database.module"
 import { CronModule } from "./cron/cron.module"
 import { ClientsModule, Transport } from "@nestjs/microservices"
+import { ScheduleModule } from "@nestjs/schedule"
 
 @Module({
     imports: [
@@ -35,6 +36,7 @@ import { ClientsModule, Transport } from "@nestjs/microservices"
             },
         ]),
         ConfigModule.forRoot(),
+        ScheduleModule.forRoot(),
         MongooseModule.forRoot(process.env.db_url),
         CronModule,
         HttpModule,
