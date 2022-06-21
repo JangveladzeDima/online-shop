@@ -1,8 +1,8 @@
 import { Inject, Injectable } from "@nestjs/common"
-import { IClientRepository } from "src/database/client-repository.interface"
-import { IClientFilter } from "src/interface/client-filter.interface"
-import { ClientRepository } from "src/database/client.repository"
-import { IClient } from "src/interface/client.interface"
+import { IClientRepository } from "../../database/client-repository.interface"
+import { IClientFilter } from "../../interface/client-filter.interface"
+import { ClientRepository } from "../../database/client.repository"
+import { IClient } from "../../interface/client.interface"
 import { IClientService } from "./client-service.interface"
 import { ClientProxy, RpcException } from "@nestjs/microservices"
 import { IClientUpdate } from "src/interface/client.update.interface"
@@ -10,7 +10,8 @@ import { firstValueFrom } from "rxjs"
 
 @Injectable()
 export class ClientService implements IClientService {
-    constructor(@Inject(ClientRepository) private readonly clientRepository: IClientRepository, @Inject("HASH_SERVICE") private readonly hashService: ClientProxy) {}
+    constructor(@Inject(ClientRepository) private readonly clientRepository: IClientRepository, @Inject("HASH_SERVICE") private readonly hashService: ClientProxy) {
+    }
 
     async getClient(filter: IClientFilter): Promise<IClient> {
         return this.clientRepository.getClient(filter)
@@ -42,7 +43,10 @@ export class ClientService implements IClientService {
                 code: 404,
             })
         }
-        const { hash, salt } = await firstValueFrom(this.hashService.send("get-hash-and-salt-by-text", clientUpdateParams.password))
+        const {
+            hash,
+            salt
+        } = await firstValueFrom(this.hashService.send("get-hash-and-salt-by-text", clientUpdateParams.password))
         return this.clientRepository.update(filter, {
             ...clientUpdateParams,
             password: hash,
