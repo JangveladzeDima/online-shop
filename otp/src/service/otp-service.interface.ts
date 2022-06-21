@@ -3,5 +3,5 @@ import { UpdateParams } from "src/interface/updateparams.interface"
 
 export interface IOtpService {
     generateAndSendOtp(email: string): Promise<IClient>
-    validateOtpAndUpdatePassword(params: UpdateParams): Promise<IClient>
+    updatePassword(params: UpdateParams): Promise<IClient>
 }

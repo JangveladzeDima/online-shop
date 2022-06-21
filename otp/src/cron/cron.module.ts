@@ -1,9 +1,10 @@
-import { Module, forwardRef } from "@nestjs/common"
-import { TasksService } from "./cron.service"
-import { OtpModule } from "../otp.module"
+import { Module } from "@nestjs/common"
+import { CronService } from "./cron.service"
+import { DatabaseModule } from "src/database/database.module"
 
 @Module({
-    imports: [forwardRef(() => OtpModule)],
-    providers: [TasksService],
+    imports: [DatabaseModule],
+    providers: [CronService],
+    exports: [CronService],
 })
-export class TasksModule {}
+export class CronModule {}

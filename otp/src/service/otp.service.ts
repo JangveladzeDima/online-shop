@@ -42,8 +42,8 @@ export class OtpService implements IOtpService {
         }
     }
 
-    async validateOtpAndUpdatePassword(params: UpdateParams): Promise<IClient> {
-        const data = await this.otpRepository.getOtp({
+    async updatePassword(params: UpdateParams): Promise<IClient> {
+        const data = await this.otpRepository.get({
             email: params.email,
             code: params.otpcode,
         })

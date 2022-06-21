@@ -5,9 +5,41 @@ import { OtpService } from "./service/otp.service"
 import { ConfigModule } from "@nestjs/config"
 import { HttpModule } from "@nestjs/axios"
 import { DatabaseModule } from "./database/database.module"
+import { CronModule } from "./cron/cron.module"
+import { ClientsModule, Transport } from "@nestjs/microservices"
 
 @Module({
-    imports: [ConfigModule.forRoot(), MongooseModule.forRoot(process.env.db_url), HttpModule, DatabaseModule],
+    imports: [
+        ClientsModule.register([
+            {
+                name: "HASH_SERVICE",
+                transport: Transport.RMQ,
+                options: {
+                    urls: ["amqp://guest:guest@localhost:5672"],
+                    queue: "hash_queue",
+                    queueOptions: {
+                        durable: false,
+                    },
+                },
+            },
+            {
+                name: "CLIENT_SERVICE",
+                transport: Transport.RMQ,
+                options: {
+                    urls: ["amqp://guest:guest@localhost:5672"],
+                    queue: "client_queue",
+                    queueOptions: {
+                        durable: false,
+                    },
+                },
+            },
+        ]),
+        ConfigModule.forRoot(),
+        MongooseModule.forRoot(process.env.db_url),
+        CronModule,
+        HttpModule,
+        DatabaseModule,
+    ],
     controllers: [OtpController],
     providers: [OtpService],
 })

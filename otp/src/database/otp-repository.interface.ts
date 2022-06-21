@@ -3,5 +3,5 @@ import { IOtp } from "src/interface/otp.interface"
 
 export interface IOtpRepository {
     create(data: IOtp): Promise<IOtp>
-    getOtp(filter: IOtpFilter): Promise<IOtp>
+    get(filter: IOtpFilter): Promise<IOtp>
 }

@@ -23,7 +23,7 @@ export class OtpController {
     @MessagePattern("validate-otp-and-update-forgotten-password")
     async addClient(@Payload() params: UpdateParams) {
         try {
-            return this.otpService.validateOtpAndUpdatePassword(params)
+            return this.otpService.updatePassword(params)
         } catch (error) {
             this.logger.error(error.message)
             throw error

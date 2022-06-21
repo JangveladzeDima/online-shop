@@ -12,11 +12,11 @@ export class OtpRepository implements IOtpRepository {
     logger = new Logger(OtpRepository.name)
 
     constructor(@InjectModel(Otp.name) private readonly otp: Model<OtpDocument>) {}
-    async getOtp(filter: IOtpFilter): Promise<IOtp> {
+    async get(filter: IOtpFilter): Promise<IOtp> {
         return this.otp.findOne(filter)
     }
 
-    async deleteMany(filter: IOtpFilter): Promise<any> {
+    async deleteExpiredOtps(filter: IOtpFilter): Promise<any> {
         return this.otp.deleteMany(filter)
     }
 

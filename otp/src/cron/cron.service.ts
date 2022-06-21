@@ -4,15 +4,15 @@ import { Cron } from "@nestjs/schedule"
 import { OtpRepository } from "src/database/otp.repository"
 
 @Injectable()
-export class TasksService {
+export class CronService {
     constructor(@Inject(OtpRepository) private readonly otpRepository: OtpRepository) {}
-    logger = new Logger(TasksService.name)
+    logger = new Logger(CronService.name)
 
     @Cron("* * * * *")
     async handleCron() {
         try {
             const currentTime = new Date().getTime()
-            await this.otpRepository.deleteMany({ expireIn: { $lt: currentTime } })
+            await this.otpRepository.deleteExpiredOtps({ expireIn: { $lt: currentTime } })
         } catch (error) {
             this.logger.error(error.message)
             throw error
