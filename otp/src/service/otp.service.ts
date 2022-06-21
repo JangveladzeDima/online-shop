@@ -23,7 +23,7 @@ export class OtpService implements IOtpService {
             const saveOtpData = await this.otpRepository.create({
                 email: email,
                 code: otpcode,
-                expireIn: new Date().getTime() + 300000,
+                expireIn: new Date().getTime() + 600,
             })
 
             const sendEmail = await firstValueFrom(
@@ -48,21 +48,17 @@ export class OtpService implements IOtpService {
             code: params.otpcode,
         })
         if (data) {
-            const currentTime = new Date().getTime()
-            const diff = data.expireIn - currentTime
-            if (diff < 0) {
-                throw new RpcException({
-                    message: "Token is expired",
-                    code: 408,
-                })
-            } else {
-                return firstValueFrom(
-                    this.clientService.send("update", {
-                        filter: { email: params.email },
-                        updateParams: { password: params.password },
-                    }),
-                )
-            }
+            return firstValueFrom(
+                this.clientService.send("update", {
+                    filter: { email: params.email },
+                    updateParams: { password: params.password },
+                }),
+            )
+        } else {
+            throw new RpcException({
+                message: "Invalid OTP. Please check your code and try again.",
+                code: 410,
+            })
         }
     }
 }

@@ -16,6 +16,10 @@ export class OtpRepository implements IOtpRepository {
         return this.otp.findOne(filter)
     }
 
+    async deleteMany(filter: IOtpFilter): Promise<any> {
+        return this.otp.deleteMany(filter)
+    }
+
     async create(data: IOtp): Promise<IOtp> {
         return this.otp.create(data)
     }
