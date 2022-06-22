@@ -1,5 +1,5 @@
-import { IClient } from "../../src/interface/client.interface";
-import { IClientUpdate } from "../../src/interface/client.update.interface";
+import { IClient } from "../../src/interface/client.interface"
+import { IClientUpdate } from "../../src/interface/client.update.interface"
 
 export const clientStub: IClient = {
     email: "djangvela1dze@unisens.ge",
@@ -44,11 +44,11 @@ export const clientStubSmallLastname: IClient = {
     lastname: "1",
 }
 export const clientFirstnameUpdateStab: IClientUpdate = {
-    firstname: 'gela'
+    firstname: "gela",
 }
 export const clientLastnameUpdateStab: IClientUpdate = {
-    lastname: 'dvalishvili'
+    lastname: "dvalishvili",
 }
 export const clientPasswordUpdateStab: IClientUpdate = {
-    password: 'axalivsar'
+    password: "axalivsar",
 }

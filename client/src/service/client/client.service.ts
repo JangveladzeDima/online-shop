@@ -10,8 +10,7 @@ import { firstValueFrom } from "rxjs"
 
 @Injectable()
 export class ClientService implements IClientService {
-    constructor(@Inject(ClientRepository) private readonly clientRepository: IClientRepository, @Inject("HASH_SERVICE") private readonly hashService: ClientProxy) {
-    }
+    constructor(@Inject(ClientRepository) private readonly clientRepository: IClientRepository, @Inject("HASH_SERVICE") private readonly hashService: ClientProxy) {}
 
     async getClient(filter: IClientFilter): Promise<IClient> {
         return this.clientRepository.getClient(filter)
@@ -43,10 +42,7 @@ export class ClientService implements IClientService {
                 code: 404,
             })
         }
-        const {
-            hash,
-            salt
-        } = await firstValueFrom(this.hashService.send("get-hash-and-salt-by-text", clientUpdateParams.password))
+        const { hash, salt } = await firstValueFrom(this.hashService.send("get-hash-and-salt-by-text", clientUpdateParams.password))
         return this.clientRepository.update(filter, {
             ...clientUpdateParams,
             password: hash,

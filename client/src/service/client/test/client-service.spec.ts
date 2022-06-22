@@ -4,7 +4,9 @@ import { ClientRepository } from "../../../database/client.repository"
 import { ClientsModule, Transport } from "@nestjs/microservices"
 import { IClient } from "../../../interface/client.interface"
 import { clientFirstnameUpdateStab, clientStub } from "../../../../test/stubs/client-service.spec.stubs"
-
+/*
+need finish update test
+*/
 let clients: IClient[] = []
 describe("test client service", () => {
     let service: ClientService
@@ -48,7 +50,7 @@ describe("test client service", () => {
             }
         }),
         update: jest.fn(params => {
-            console.log(params);
+            console.log(params)
             let index = 0
             let needClient = {}
             // for (let client of clients) {
@@ -69,9 +71,9 @@ describe("test client service", () => {
         }),
     }
     const mockHashService = {
-        'get-hash-and-salt-by-text': jest.fn(params => {
+        "get-hash-and-salt-by-text": jest.fn(params => {
             console.log(params)
-        })
+        }),
     }
     beforeAll(async () => {
         const module: TestingModule = await Test.createTestingModule({
